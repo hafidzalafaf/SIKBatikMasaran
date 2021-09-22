@@ -1,8 +1,9 @@
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
 @extends('layouts.main')
 
 @section('content')
-<form id="demo-form2" action="#" data-parsley-validate class="form-horizontal form-label-left">
-
+<form id="demo-form2" method="post" action="{{ route('pemasukan.store') }}" data-parsley-validate class="form-horizontal form-label-left">
+    @csrf
     <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal<span class="required"></span>
         </label>
@@ -42,7 +43,7 @@
     <div class="item form-group" id="keterangan-pemasukan">
         <label for="keterangan" class="col-form-label col-md-3 col-sm-3 label-align">Keterangan</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="keterangan" class="form-control" type="text" name="keterangan" required>
+            <input id="keterangan" class="form-control" type="text" name="keterangan">
         </div>
     </div>
     <div class="item form-group">
@@ -54,7 +55,7 @@
     <div class="item form-group">
         <label for="total-harga" class="col-form-label col-md-3 col-sm-3 label-align">Total Harga</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="total-harga" class="form-control" type="number" name="total-harga" required>
+            <input id="total_harga" class="form-control" type="number" name="total_harga" required>
         </div>
     </div>
     

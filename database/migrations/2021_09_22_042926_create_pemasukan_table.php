@@ -19,8 +19,8 @@ class CreatePemasukanTable extends Migration
             $table->string('motif');
             $table->string('barang');
             $table->string('ukuran');
-            $table->string('keterangan');
-            $table->string('nama');
+            $table->string('keterangan')->nullable();
+            // $table->string('nama');
             $table->string('jumlah');
             $table->string('nominal');
             $table->timestamps();

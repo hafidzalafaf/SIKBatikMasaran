@@ -1,8 +1,9 @@
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
+<!-- jQuery -->
+<script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js')  }}"></script>
 @extends('layouts.main')
 
-@section('content')
-
-        
+@section('content')        
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
@@ -12,48 +13,74 @@
                     </p>
                     <div class="header-button">
                         <a href="/pemasukan/all" class="btn btn-sm btn-info ml-1"> <i class="fa fa-eye"></i> Lihat Semua Pemasukan</a>
-                        <a href="/pemasukan/tambah" class="btn btn-sm btn-success ml-1"> <i class="fa fa-plus"></i> Tambah Pemasukan</a>
+                        <a href="{{ route('pemasukan.create') }}" class="btn btn-sm btn-success ml-1"> <i class="fa fa-plus"></i> Tambah Pemasukan</a>
                     </div>
             </div>
-            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%"> 
+            <table id="datatable-pemasukan" class="table table-striped table-bordered" style="width:100%"> 
                 <thead>
                     <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Jumlah Pemasukan</th>
-                    <th>Detail</th>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Jumlah Pemasukan</th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
-
-
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>20-01-2021</td>
-                        <td>Rp. 2.900.000</td>
-                        <td><a href="/pemasukan/detail" class="btn btn-sm btn-info">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>19-01-2021</td>
-                        <td>Rp. 2.100.000</td>
-                        <td><a href="/pemasukan/detail" class="btn btn-sm btn-info">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>18-01-2021</td>
-                        <td>Rp. 3.100.000</td>
-                        <td><a href="/pemasukan/detail" class="btn btn-sm btn-info">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>17-01-2021</td>
-                        <td>Rp. 1.900.000</td>
-                        <td><a href="/pemasukan/detail" class="btn btn-sm btn-info">Detail</a></td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    //CSRF TOKEN PADA HEADER
+        //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        
+        });
+  
+        //MULAI DATATABLE
+        //script untuk memanggil data json dari server dan menampilkannya berupa datatable
+        $(document).ready(function () {
+            $('#datatable-pemasukan').DataTable({
+                // destroy: true,
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "{{ route('pemasukan.index') }}",
+                    type: 'GET'
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex', 
+                        name: 'DT_RowIndex', orderable: false,searchable: false
+                    },
+                    {
+                        data: 'tanggal', 
+                        name: 'tanggal',
+                    },
+                    {
+                        data: 'id', 
+                        name: 'id', 
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,searchable: false
+                    },
+  
+                ],
+                order: [
+                    [0, 'desc']
+                ]
+            });
+        });
+</script>
+
+
+
 @endsection
+
