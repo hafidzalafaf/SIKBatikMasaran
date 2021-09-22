@@ -1,0 +1,55 @@
+.site_title i,
+.site_title span {
+    margin-top: 20px;
+}
+
+.dashboard-card .card-header {
+    font-size: 16px;
+}
+
+.dashboard-card h5 {
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+.dashboard-card i {
+    opacity: 0.5;
+}
+
+.buttons-copy {
+    background-color: #6c757d;
+    margin: 5px 5px !important;
+    color: #fff;
+}
+.buttons-csv {
+    background-color: #28a745;
+    margin: 5px 5px !important;
+    color: #fff;
+}
+.buttons-excel {
+    background-color: #17a2b8;
+    margin: 5px 5px !important;
+    color: #fff;
+}
+.buttons-pdf {
+    background-color: #dc3545;
+    margin: 5px 5px !important;
+    color: #fff;
+}
+.buttons-print {
+    background-color: #f8f9fa;
+    margin: 5px 5px !important;
+}
+
+#keterangan-pemasukan {
+    display: none;
+}
+
+#profil-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
