@@ -11,8 +11,8 @@
                     Halaman ini menampilkan rangkuman laporan Pengeluaran tiap hari. Klik <span class="text-primary font-weight-bold">Lihat Semua Pengeluaran</span> untuk melihat keseluruhan laporan pengeluaran.  Klik <span class="text-primary font-weight-bold">Detail</span> untuk melihat detail pengeluaran dalam 1 hari.
                     </p>
                     <div class="header-button">
-                        <a href="/pengeluaran/all" class="btn btn-sm btn-info ml-1"> <i class="fa fa-eye"></i> Lihat Semua Pemasukan</a>
-                        <a href="/pengeluaran/tambah" class="btn btn-sm btn-success ml-1"> <i class="fa fa-plus"></i> Tambah Pemasukan</a>
+                        <a href="/pengeluaran/all" class="btn btn-sm btn-info ml-1"> <i class="fa fa-eye"></i> Lihat Semua Pengeluaran</a>
+                        <a href="/pengeluaran/tambah" class="btn btn-sm btn-success ml-1"> <i class="fa fa-plus"></i> Tambah Pengeluaran</a>
                     </div>
             </div>
             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%"> 
