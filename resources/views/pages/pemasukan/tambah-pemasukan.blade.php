@@ -32,7 +32,7 @@
     <div class="item form-group row">
         <label class="col-form-label col-md-3 col-sm-3 label-align">Jenis Penjualan</label>
         <div class="col-md-6 col-sm-6 ">
-            <select class="form-control" name="jenis-penjualan" id="jenis-penjualan" onclick="cekKeterangan()" required>
+            <select class="form-control" name="jenis-penjualan" id="jenis-penjualan" required>
                 <option>-- Pilih --</option>
                 <option value="online">Online</option>
                 <option value="offline">Offline</option>
