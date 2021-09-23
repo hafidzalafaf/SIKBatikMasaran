@@ -30,16 +30,6 @@
             <input id="ukuran" class="form-control" type="text" name="ukuran" required>
         </div>
     </div>
-    <div class="item form-group row">
-        <label class="col-form-label col-md-3 col-sm-3 label-align">Jenis Penjualan</label>
-        <div class="col-md-6 col-sm-6 ">
-            <select class="form-control" name="jenis-penjualan" id="jenis-penjualan" onclick="cekKeterangan()" required>
-                <option>-- Pilih --</option>
-                <option value="online">Online</option>
-                <option value="offline">Offline</option>
-            </select>
-        </div>
-    </div>
     <div class="item form-group" id="keterangan-pemasukan">
         <label for="keterangan" class="col-form-label col-md-3 col-sm-3 label-align">Keterangan</label>
         <div class="col-md-6 col-sm-6 ">
