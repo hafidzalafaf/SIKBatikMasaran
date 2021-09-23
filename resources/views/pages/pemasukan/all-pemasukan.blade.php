@@ -6,7 +6,7 @@
         <div class="card-box table-responsive">
             <div class="row">
                 <p class="text-muted font-13 m-b-30 col-md-8 col-12">
-                    Halaman ini menampilkan keseluruhan laporan pemasukan.  Klik <span class="text-primary font-weight-bold">Cetak</span> untuk mencetak laporan sesuai tanggal awal sampai tanggal akhir ke dalam file excel.
+                    Halaman ini menampilkan keseluruhan laporan pemasukan.  Klik <span class="text-primary font-weight-bold">Cari</span> untuk mencari laporan sesuai tanggal awal sampai tanggal akhir ke dalam file excel.
                     </p>
             </div>
             <div class="row d-flex justify-content-between my-3">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <center class="mb-5">
-                            <button type="button" class="btn btn-sm btn-success m-1">Cetak</button>
+                            <button type="button" class="btn btn-sm btn-success m-1">Cari</button>
                         </center>
                     </form>
                 </div>
