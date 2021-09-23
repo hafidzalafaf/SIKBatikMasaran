@@ -8,4 +8,5 @@ class Pemasukan extends Model
 {
     protected $table= 'pemasukan';
     protected $guarded = [];
+
 }

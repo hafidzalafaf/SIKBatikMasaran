@@ -15,14 +15,13 @@ class CreatePemasukanTable extends Migration
     {
         Schema::create('pemasukan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('tanggal');
             $table->string('motif');
             $table->string('barang');
-            $table->string('ukuran');
+            $table->string('ukuran')->nullable();
             $table->string('keterangan')->nullable();
-            // $table->string('nama');
             $table->string('jumlah');
             $table->string('nominal');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
