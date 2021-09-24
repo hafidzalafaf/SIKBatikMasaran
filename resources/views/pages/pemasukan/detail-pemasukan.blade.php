@@ -1,13 +1,18 @@
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
+<!-- jQuery -->
+<script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js')  }}"></script>
 @extends('layouts.main')
 
 @section('content')
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
+            @foreach ($post->take(1) as $post )                
             <p class="text-muted font-13 m-b-30">
-            Menampilkan rincian laporan pemasukan tanggal <span class="text-primary font-weight-bold">21-01-2021</span>. 
+            Menampilkan rincian laporan pemasukan tanggal <span class="text-primary font-weight-bold">{{ $post->tanggal }}</span>. 
             </p>
-            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+            @endforeach
+            <table id="pemasukan-detail" class="table table-striped table-bordered" style="width:100%">
                 
                 <thead>
                     <tr>
@@ -22,52 +27,6 @@
                     <th>Aksi</th>
                     </tr>
                 </thead>
-
-
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>20-01-2021</td>
-                        <td>Kemeja</td>
-                        <td>L</td>
-                        <td>Merak Abu</td>
-                        <td>1</td>
-                        <td>Rp.300.000</td>
-                        <td>PAK DD</td>
-                        <td>
-                            <a href="/pemasukan/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pemasukan/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>20-01-2021</td>
-                        <td>Kaftan</td>
-                        <td>M</td>
-                        <td>Milo</td>
-                        <td>2</td>
-                        <td>Rp.400.000</td>
-                        <td>PAK Budi</td>
-                        <td>
-                            <a href="/pemasukan/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pemasukan/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>20-01-2021</td>
-                        <td>Kemeja</td>
-                        <td>XL</td>
-                        <td>Merak Abu</td>
-                        <td>3</td>
-                        <td>Rp.900.000</td>
-                        <td>Bu Ida</td>
-                        <td>
-                            <a href="/pemasukan/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pemasukan/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
@@ -86,9 +45,139 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-          <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+          <a href="#" id="tombol-hapus" class="btn btn-danger btn-sm">Hapus</a>
         </div>
       </div>
     </div>
   </div>
+
+
+  <script>
+    //CSRF TOKEN PADA HEADER
+        //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        
+        });
+  
+        //MULAI DATATABLE
+        //script untuk memanggil data json dari server dan menampilkannya berupa datatable
+        $(document).ready(function () {
+            $('#pemasukan-detail').DataTable({
+            language: {
+                    buttons: {
+                        // collection : 'Unduh',
+                        pdf:'Unduh',
+                        print : 'Cetak',
+                        excel : 'Excel',
+                        csv : 'CSV',
+                    }
+            },
+            
+            buttons : [
+                        // {extend:'collection', postfixButtons: [ 'pdf', 'excel', 'csv' ]},
+                        {extend:'pdf',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'print',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'excel',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'csv',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'pageLength'},
+            ],
+
+            lengthChange: false,
+            // buttons: [ 'excel', 'pdf', 'print', 'csv', 'pageLength' ],
+                initComplete: function () {
+                    this.api().buttons().container() //untuk tombol unduh dan cetak
+                    .appendTo( '#pemasukan-detail_wrapper .col-sm-6:eq(0)' ); 
+            },
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "{{ url('pemasukan/'. $post->tanggal) }}",
+                    type: 'GET'
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex', 
+                        name: 'DT_RowIndex', orderable: false,searchable: false
+                    },
+                    {
+                        data: 'tanggal', 
+                        name: 'tanggal',
+                    },
+                    {
+                        data: 'barang', 
+                        name: 'barang', 
+                    },
+                    {
+                        data: 'ukuran', 
+                        name: 'ukuran', 
+                    },
+                    {
+                        data: 'motif', 
+                        name: 'motif', 
+                    },
+                    {
+                        data: 'jumlah', 
+                        name: 'jumlah', 
+                    },
+                    {
+                        data: 'nominal', 
+                        name: 'nominal', 
+                    },
+                    {
+                        data: 'keterangan', 
+                        name: 'keterangan', 
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,searchable: false
+                    },
+  
+                ],
+                order: [
+                    [0, 'desc']
+                ]
+            });
+
+
+            //jika klik class delete (yang ada pada tombol delete) maka tampilkan modal konfirmasi hapus maka
+            $(document).on('click', '.delete', function () {
+                    dataId = $(this).attr('id');
+                    $('#exampleModal').modal('show');
+                });
+
+            //jika tombol hapus pada modal konfirmasi di klik maka
+            $('#tombol-hapus').click(function () {
+                $.ajax({
+                    url: dataId, //eksekusi ajax ke url ini
+                    type: 'delete',
+                    beforeSend: function () {
+                        $('#tombol-hapus').text('Hapus Data'); //set text untuk tombol hapus
+                    },
+                    success: function (data) { //jika sukses
+                        setTimeout(function () {
+                            $('#exampleModal').modal('hide'); //sembunyikan konfirmasi modal
+                            var oTable = $('#pemasukan-detail').dataTable();
+                            oTable.fnDraw(false); //reset datatable
+                        });
+                        iziToast.warning({ //tampilkan izitoast warning
+                            title: 'Data Berhasil Dihapus',
+                            message: '{{ Session('
+                            delete ')}}',
+                            position: 'bottomRight'
+                        });
+                    }
+          })
+      });
+        });
+</script>
 @endsection

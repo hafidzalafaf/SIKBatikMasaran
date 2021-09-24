@@ -40,21 +40,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // PEMASUKAN
-
-Route::get('/pemasukan/detail', function () {
-    return view('pages.pemasukan.detail-pemasukan', [
-        "title" => "Detail Pemasukan",
-        "sidebar" => "pemasukan"
-    ]);
-});
-
-// Route::get('/pemasukan/edit', function () {
-//     return view('pages.pemasukan.edit-pemasukan', [
-//         "title" => "Form Edit Pemasukan",
-//         "sidebar" => "pemasukan"
-//     ]);
-// });
-
 Route::get('/pemasukan/all', 'PemasukanController@all');
 Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
 // END PEMASUKAN

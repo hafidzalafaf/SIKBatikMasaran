@@ -18,12 +18,12 @@ class PemasukanController extends Controller
         $title= "Rangkuman Pemasukan";
         $sidebar= "pemasukan";
 
-        $daftar = Pemasukan::get();
+        $daftar = Pemasukan::get()->unique('tanggal');
         // $daftar = Pemasukan::distinct()->get(['tanggal']);;
         if($request->ajax()){
             return datatables()->of($daftar)
                     ->addColumn('action', function($data){
-                        $button = '<a href="/pemasukan/detail" data-id="'.$data->id.'" class="btn btn-sm btn-info">Detail</a>';                               
+                        $button = '<a href="pemasukan/'.$data->tanggal.'" data-id="'.$data->tanggal.'" class="btn btn-sm btn-info">Detail</a>';                               
                         return $button;
                     })
                     ->rawColumns(['action'])
@@ -83,9 +83,31 @@ class PemasukanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $tanggal)
     {
-        //
+
+        $title= "Detail Pemasukan";
+        $sidebar= "pemasukan";
+
+        $where = array('tanggal' => $tanggal);
+        $post  =  Pemasukan::where($where)->get();
+
+        if($request->ajax()){
+            return datatables()->of($post)
+                    ->addColumn('action', function($data){
+                        $button = '<a href="'.$data->id.'/edit" data-id="'.$data->id.'" class="btn btn-sm btn-info">Edit</a>';                               
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-sm btn-danger" data-toggle="modal">Hapus</button>';
+                        return $button;
+                        
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+
+        }        
+
+        return view('pages.pemasukan.detail-pemasukan', compact('title','sidebar','post'));
     }
 
     /**
@@ -115,7 +137,21 @@ class PemasukanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $where = array('id' => $id);
+            $kirim = Pemasukan::where($where)->first();
+            
+            $kirim->update([
+                'tanggal' => $request->tanggal,
+                'motif' => $request->motif,
+                'barang' => $request->barang,
+                'ukuran' => $request->ukuran,
+                'keterangan' => $request->keterangan,
+                'jumlah' => $request->jumlah,
+                'nominal' => $request->total_harga,           
+            ]);
+
+            
+            return redirect()->route('pemasukan.index');
     }
 
     /**

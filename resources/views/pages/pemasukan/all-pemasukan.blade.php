@@ -96,19 +96,25 @@
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
         $(document).ready(function () {
             $('#pemasukan-all').DataTable({
-            language: {
+                language: {
                     buttons: {
                         // collection : 'Unduh',
                         pdf:'Unduh',
                         print : 'Cetak',
+                        excel : 'Excel',
+                        csv : 'CSV',
                     }
             },
             
             buttons : [
                         // {extend:'collection', postfixButtons: [ 'pdf', 'excel', 'csv' ]},
-                        {extend:'pdf',title: 'download', exportOptions: {
+                        {extend:'pdf',title: 'laporan', exportOptions: {
                         columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
-                        {extend:'print',title: 'print', exportOptions: {
+                        {extend:'print',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'excel',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'csv',title: 'laporan', exportOptions: {
                         columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
                         {extend:'pageLength'},
             ],

@@ -1,8 +1,10 @@
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
 @extends('layouts.main')
 
 @section('content')
-<form id="demo-form2" action="#" data-parsley-validate class="form-horizontal form-label-left">
-
+<form id="edit-pemasukan" method="post" action="{{ route('pemasukan.update', $post->id) }}" data-parsley-validate class="form-horizontal form-label-left">
+    @csrf
+    {{ method_field('PUT') }}
     <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal<span class="required"></span>
         </label>
@@ -44,14 +46,14 @@
     <div class="item form-group">
         <label for="total-harga" class="col-form-label col-md-3 col-sm-3 label-align">Total Harga</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="total-harga" class="form-control" type="number" name="total-harga" value="{{ $post->nominal }}" required>
+            <input id="total-harga" class="form-control" type="number" name="total_harga" value="{{ $post->nominal }}" required>
         </div>
     </div>
     
     <div class="ln_solid"></div>
     <div class="item form-group">
         <div class="col-md-6 col-sm-6 offset-md-3 d-flex justify-content-center mt-3">
-            <a href="/pemasukan/detail" class="btn btn-secondary" type="button">Kembali</a>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary" type="button">Kembali</a>
             <button class="btn btn-info" type="reset">Reset</button>
             <button type="submit" class="btn btn-success">Edit</button>
         </div>
