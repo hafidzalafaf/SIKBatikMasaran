@@ -20,25 +20,25 @@
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="ab">AB<span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 ">
-            <input type="text" id="ab" name="ab" required="required" class="form-control">
+            <input type="text" id="ab" name="ab" class="form-control">
         </div>
     </div>
     <div class="item form-group">
         <label for="konsumsi" class="col-form-label col-md-3 col-sm-3 label-align">Konsumsi</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="konsumsi" class="form-control" type="text" name="konsumsi" required>
+            <input id="konsumsi" class="form-control" type="text" name="konsumsi">
         </div>
     </div>
     <div class="item form-group">
         <label for="transportasi" class="col-form-label col-md-3 col-sm-3 label-align">transportasi</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="transportasi" class="form-control" type="number" name="transportasi" required>
+            <input id="transportasi" class="form-control" type="number" name="transportasi">
         </div>
     </div>
     <div class="item form-group">
         <label for="keterangan" class="col-form-label col-md-3 col-sm-3 label-align">Keterangan</label>
         <div class="col-md-6 col-sm-6 ">
-            <textarea name="keterangan" id="keterangan" rows="3" class="form-control"></textarea>
+            <textarea name="keterangan" id="keterangan" rows="3" class="form-control" required></textarea>
         </div>
     </div>
     <div class="item form-group">
