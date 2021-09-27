@@ -28,6 +28,8 @@
     <!-- Custom Theme Style -->
     <link href="{{ asset('assets/build/css/custom.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/build/css/style.css')}}" rel="stylesheet">
+
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -167,6 +169,7 @@
   <script src="{{ asset('assets/vendors/jszip/dist/jszip.min.js')}}"></script>
   <script src="{{ asset('assets/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
   <script src="{{ asset('assets/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+  <script src="{{ asset('js/iziToast.js') }}"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('assets/build/js/custom.min.js')  }}"></script>

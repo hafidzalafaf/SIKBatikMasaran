@@ -18,10 +18,11 @@ class PemasukanController extends Controller
         $title= "Rangkuman Pemasukan";
         $sidebar= "pemasukan";
 
-        $daftar = Pemasukan::get()->unique('tanggal');
-        // $daftar = Pemasukan::distinct()->get(['tanggal']);;
+        $data = Pemasukan::select('tanggal', Pemasukan::raw('SUM(nominal) as total_pemasukan'))->groupBy('tanggal')->get();
+        // $load_tgl = Pemasukan::select('tanggal')->get();
+
         if($request->ajax()){
-            return datatables()->of($daftar)
+            return datatables()->of($data)
                     ->addColumn('action', function($data){
                         $button = '<a href="pemasukan/'.$data->tanggal.'" data-id="'.$data->tanggal.'" class="btn btn-sm btn-info">Detail</a>';                               
                         return $button;
@@ -31,8 +32,8 @@ class PemasukanController extends Controller
                     ->make(true);
 
         }
-        // dd($daftar);
-        return view('pages.pemasukan.pemasukan', compact('title','sidebar','daftar'));
+        // dd($jumlah);
+        return view('pages.pemasukan.pemasukan', compact('title','sidebar','data'));
     }
 
     /**

@@ -63,8 +63,8 @@
                         name: 'tanggal',
                     },
                     {
-                        data: 'id', 
-                        name: 'id', 
+                        data: 'total_pemasukan', 
+                        name: 'total_pemasukan', 
                     },
                     {
                         data: 'action',
@@ -72,6 +72,12 @@
                         orderable: false,searchable: false
                     },
   
+                ],
+                columnDefs: [
+                    {
+                        targets: 2,
+                        render: $.fn.dataTable.render.number('.', '.', 0, 'Rp. ')
+                    }
                 ],
                 order: [
                     [0, 'desc']

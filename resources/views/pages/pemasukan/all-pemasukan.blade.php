@@ -23,14 +23,14 @@
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal Awal<span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="date" name="tanggal" id="tanggal" required="required" class="form-control ">
+                                <input type="date" name="min" id="min" required="required" class="form-control ">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal Akhir<span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="date" name="tanggal" id="tanggal" required="required" class="form-control ">
+                                <input type="date" name="max" id="max" required="required" class="form-control ">
                             </div>
                         </div>
                         <center class="mb-5">
@@ -91,6 +91,8 @@
             });
         
         });
+
+
   
         //MULAI DATATABLE
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
@@ -171,6 +173,12 @@
                     },
   
                 ],
+                columnDefs: [
+                    {
+                        targets: 6,
+                        render: $.fn.dataTable.render.number('.', '.', 0, 'Rp. ')
+                    }
+                ],
                 order: [
                     [0, 'desc']
                 ]
@@ -207,5 +215,6 @@
           })
       });
         });
+        
 </script>
 @endsection
