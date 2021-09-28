@@ -143,6 +143,12 @@
                     },
   
                 ],
+                columnDefs: [
+                    {
+                        targets: 6,
+                        render: $.fn.dataTable.render.number('.', '.', 0, 'Rp. ')
+                    }
+                ],
                 order: [
                     [0, 'desc']
                 ]

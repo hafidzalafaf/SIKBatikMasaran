@@ -10,12 +10,11 @@ class Pemasukan extends Model
     protected $table= 'pemasukan';
     protected $guarded = [];
 
-
-    // // convert waktu
+    // convert waktu
     // public function getCreatedAtAttribute()
     // {
     //     return Carbon::parse($this->attributes['tanggal'])
-    //     ->locale('id')->isoFormat('DD MM Y');
+    //     ->locale('id')->isoFormat('LL');
     // }
 
 }

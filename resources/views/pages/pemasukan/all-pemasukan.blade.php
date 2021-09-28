@@ -1,6 +1,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}"> 
 <!-- jQuery -->
 <script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js')  }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
 @extends('layouts.main')
 
@@ -17,26 +18,25 @@
                 <div class="left-side">
 
                 </div>
-                <div class="header-search col-md-10 col-12">
-                    <form action="" method="POST" >
+                <div class="header-search col-md-10 col-12 input-daterange">
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal Awal<span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="date" name="min" id="min" required="required" class="form-control ">
+                                <input type="text" name="from_date" id="from_date" required="required" class="form-control ">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal Akhir<span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 ">
-                                <input type="date" name="max" id="max" required="required" class="form-control ">
+                                <input type="text" name="to_date" id="to_date" required="required" class="form-control ">
                             </div>
                         </div>
                         <center class="mb-5">
-                            <button type="button" class="btn btn-sm btn-success m-1">Cari</button>
+                            <button type="button" name="filter" id="filter" class="btn btn-sm btn-success m-1">Cari</button>
+                            <button type="button" name="refresh" id="refresh" class="btn btn-sm btn-secondary m-1">Reset</button>
                         </center>
-                    </form>
                 </div>
             </div>
             <table id="pemasukan-all" class="table table-striped table-bordered" style="width:100%">
@@ -97,6 +97,16 @@
         //MULAI DATATABLE
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
         $(document).ready(function () {
+            $('.input-daterange').datepicker({
+                todayBtn:'linked',
+                format:'yyyy-mm-dd',
+                autoclose:true
+                });
+
+            load_data();
+
+            function load_data(from_date = '', to_date = ''){
+
             $('#pemasukan-all').DataTable({
                 language: {
                     buttons: {
@@ -131,7 +141,8 @@
                 serverSide: true, //aktifkan server-side 
                 ajax: {
                     url: "{{ url('/pemasukan/all') }}",
-                    type: 'GET'
+                    type: 'GET',
+                    data:{from_date:from_date, to_date:to_date}
                 },
                 columns: [
                     {
@@ -183,7 +194,29 @@
                     [0, 'desc']
                 ]
             });
+        }
 
+
+        $('#filter').click(function(){
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if(from_date != '' &&  to_date != '')
+                {
+                    $('#pemasukan-all').DataTable().destroy();
+                    load_data(from_date, to_date);
+                }
+            else
+                {
+                    alert('Both Date is required');
+                }
+            });
+
+        $('#refresh').click(function(){
+            $('#from_date').val('');
+            $('#to_date').val('');
+            $('#pemasukan-all').DataTable().destroy();
+            load_data();
+        });
 
             //jika klik class delete (yang ada pada tombol delete) maka tampilkan modal konfirmasi hapus maka
             $(document).on('click', '.delete', function () {
@@ -214,7 +247,8 @@
                     }
           })
       });
-        });
+
+    });
         
 </script>
 @endsection

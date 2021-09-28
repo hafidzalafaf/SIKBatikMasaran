@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pemasukan;
 use App\PemasukanDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class PemasukanController extends Controller
 {
@@ -65,6 +66,8 @@ class PemasukanController extends Controller
                     // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],$messages);
         
+        // $conv = Carbon::createFromFormat('Y-m-d', $request->tanggal)->format('d/m/Y');
+            
             $kirim = Pemasukan::create([
                 'tanggal' => $request->tanggal,
                 'motif' => $request->motif,
@@ -176,6 +179,13 @@ class PemasukanController extends Controller
         $post = Pemasukan::all();
         // $daftar = Pemasukan::distinct()->get(['tanggal']);;
         if($request->ajax()){
+            if(!empty($request->from_date)){
+                $post = Pemasukan::whereBetween('tanggal', array($request->from_date, $request->to_date))->get();
+            }
+            else{
+             $post = Pemasukan::get();
+            }
+            
             return datatables()->of($post)
                     ->addColumn('action', function($data){
                         $button = '<a href="'.$data->id.'/edit" data-id="'.$data->id.'" class="btn btn-sm btn-info">Edit</a>';                               
