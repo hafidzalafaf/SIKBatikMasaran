@@ -100,7 +100,7 @@
                 processing: true,
                 serverSide: true, //aktifkan server-side 
                 ajax: {
-                    url: "{{ url('pemasukan/'. $post->tanggal) }}",
+                    url: "{{ url('pemasukan/'. date('Y-m-d', strtotime($post->tanggal))) }}",
                     type: 'GET'
                 },
                 columns: [

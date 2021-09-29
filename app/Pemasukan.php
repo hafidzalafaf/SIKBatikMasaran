@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Support\Carbon;
+use Illuminate\Support\Carbon;
 
 class Pemasukan extends Model
 {
@@ -11,10 +11,10 @@ class Pemasukan extends Model
     protected $guarded = [];
 
     // convert waktu
-    // public function getCreatedAtAttribute()
-    // {
-    //     return Carbon::parse($this->attributes['tanggal'])
-    //     ->locale('id')->isoFormat('LL');
-    // }
+    public function getTanggalAttribute()
+    {
+        return Carbon::parse($this->attributes['tanggal'])
+        ->locale('id')->isoFormat('DD-MM-YYYY');
+    }
 
 }

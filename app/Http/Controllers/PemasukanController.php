@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Pemasukan;
-use App\PemasukanDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -25,7 +24,7 @@ class PemasukanController extends Controller
         if($request->ajax()){
             return datatables()->of($data)
                     ->addColumn('action', function($data){
-                        $button = '<a href="pemasukan/'.$data->tanggal.'" data-id="'.$data->tanggal.'" class="btn btn-sm btn-info">Detail</a>';                               
+                        $button = '<a href="pemasukan/'.date('Y-m-d', strtotime($data->tanggal)).'" data-id="'.date('Y-m-d', strtotime($data->tanggal)).'" class="btn btn-sm btn-info">Detail</a>';                               
                         return $button;
                     })
                     ->rawColumns(['action'])
@@ -112,6 +111,7 @@ class PemasukanController extends Controller
         }        
 
         return view('pages.pemasukan.detail-pemasukan', compact('title','sidebar','post'));
+        // dd($post);
     }
 
     /**
@@ -177,10 +177,12 @@ class PemasukanController extends Controller
         $sidebar= "pemasukan";
 
         $post = Pemasukan::all();
-        // $daftar = Pemasukan::distinct()->get(['tanggal']);;
+        $conv_from = date('Y-m-d', strtotime($request->from_date));  
+        $conv_to = date('Y-m-d', strtotime($request->to_date));
+
         if($request->ajax()){
             if(!empty($request->from_date)){
-                $post = Pemasukan::whereBetween('tanggal', array($request->from_date, $request->to_date))->get();
+                $post = Pemasukan::whereBetween('tanggal', array($conv_from, $conv_to))->get();
             }
             else{
              $post = Pemasukan::get();

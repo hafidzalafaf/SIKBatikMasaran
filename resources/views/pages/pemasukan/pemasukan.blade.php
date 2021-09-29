@@ -46,7 +46,35 @@
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
         $(document).ready(function () {
             $('#datatable-pemasukan').DataTable({
-                // destroy: true,
+                language: {
+                    buttons: {
+                        // collection : 'Unduh',
+                        pdf:'Unduh',
+                        print : 'Cetak',
+                        excel : 'Excel',
+                        csv : 'CSV',
+                    }
+            },
+            
+            buttons : [
+                        // {extend:'collection', postfixButtons: [ 'pdf', 'excel', 'csv' ]},
+                        {extend:'pdf',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'print',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'excel',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'csv',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'pageLength'},
+            ],
+
+            lengthChange: false,
+            // buttons: [ 'excel', 'pdf', 'print', 'csv', 'pageLength' ],
+                initComplete: function () {
+                    this.api().buttons().container() //untuk tombol unduh dan cetak
+                    .appendTo( '#datatable-pemasukan_wrapper .col-sm-6:eq(0)' ); 
+            },
                 processing: true,
                 serverSide: true, //aktifkan server-side 
                 ajax: {
