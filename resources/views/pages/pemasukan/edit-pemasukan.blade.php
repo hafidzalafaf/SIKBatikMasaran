@@ -9,7 +9,7 @@
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal<span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 ">
-            <input type="date" name="tanggal" id="tanggal" required="required" class="form-control" value="{{ $post->tanggal }}">
+            <input type="date" name="tanggal" id="tanggal" required="required" class="form-control" value="{{ date('Y-m-d', strtotime($post->tanggal)) }}">
         </div>
     </div>
     <div class="item form-group">
