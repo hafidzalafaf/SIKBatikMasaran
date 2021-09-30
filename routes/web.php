@@ -45,12 +45,12 @@ Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
 // END PEMASUKAN
 
 // PENGELUARAN
-Route::get('/pengeluaran/detail', function () {
-    return view('pages.pengeluaran.detail', [
-        "title" => "Detail Pengeluaran",
-        "sidebar" => "pengeluaran"
-    ]);
-});
+// Route::get('/pengeluaran/detail', function () {
+//     return view('pages.pengeluaran.detail', [
+//         "title" => "Detail Pengeluaran",
+//         "sidebar" => "pengeluaran"
+//     ]);
+// });
 
 Route::get('/pengeluaran/edit', function () {
     return view('pages.pengeluaran.edit', [

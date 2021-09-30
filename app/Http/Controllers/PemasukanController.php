@@ -74,7 +74,7 @@ class PemasukanController extends Controller
                 'ukuran' => $request->ukuran,
                 'keterangan' => $request->keterangan,
                 'jumlah' => $request->jumlah,
-                'nominal' => $request->total_harga,
+                'nominal' => $request->total_harga ?? '-',
             ]);
 
             return redirect()->route('pemasukan.index');
@@ -151,7 +151,7 @@ class PemasukanController extends Controller
                 'ukuran' => $request->ukuran,
                 'keterangan' => $request->keterangan,
                 'jumlah' => $request->jumlah,
-                'nominal' => $request->total_harga,           
+                'nominal' => $request->total_harga ?? '-',           
             ]);
 
             

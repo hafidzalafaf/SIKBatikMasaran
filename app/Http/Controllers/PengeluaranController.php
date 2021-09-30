@@ -19,7 +19,7 @@ class PengeluaranController extends Controller
         $sidebar= "pengeluaran";
 
         $data = Pengeluaran::select('tanggal', Pengeluaran::raw('SUM(konsumsi+ab+transportasi) as total_pengeluaran'))->groupBy('tanggal')->get();
-        
+        // $data = Pengeluaran::get();
         if($request->ajax()){
             return datatables()->of($data)
                     ->addColumn('action', function($data){
@@ -31,7 +31,7 @@ class PengeluaranController extends Controller
                     ->make(true);
 
         }
-        // dd($jumlah);
+        // dd($data);
         return view('pages.pengeluaran.pengeluaran', compact('title','sidebar','data'));
     }
 
@@ -67,9 +67,9 @@ class PengeluaranController extends Controller
             $kirim = Pengeluaran::create([
                 'tanggal' => $request->tanggal,
                 'instansi' => $request->nama_instansi,
-                'ab' => $request->ab,
-                'konsumsi' => $request->konsumsi,
-                'transportasi' => $request->transportasi,
+                'ab' => $request->ab ?? '-',
+                'konsumsi' => $request->konsumsi ?? '-',
+                'transportasi' => $request->transportasi ?? '-',
                 'keterangan' => $request->keterangan,
             ]);
 
@@ -82,9 +82,31 @@ class PengeluaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $tanggal)
     {
-        //
+        $title= "Detail Pengeluaran";
+        $sidebar= "pengeluaran";
+
+        $where = array('tanggal' => $tanggal);
+        $post  =  Pengeluaran::where($where)->get();
+
+        if($request->ajax()){
+            return datatables()->of($post)
+                    ->addColumn('action', function($data){
+                        $button = '<a href="'.$data->id.'/edit" data-id="'.$data->id.'" class="btn btn-sm btn-info">Edit</a>';                               
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-sm btn-danger" data-toggle="modal">Hapus</button>';
+                        return $button;
+                        
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+
+        }        
+
+        return view('pages.pengeluaran.detail', compact('title','sidebar','post'));
+        // dd($post);
     }
 
     /**
@@ -95,7 +117,13 @@ class PengeluaranController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title= "Edit Pengeluaran";
+        $sidebar= "pengeluaran";
+
+        $where = array('id' => $id);
+        $post  = Pengeluaran::where($where)->first();
+     
+        return view('pages.pengeluaran.edit', compact('post','title','sidebar'));
     }
 
     /**
@@ -107,7 +135,20 @@ class PengeluaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $where = array('id' => $id);
+            $kirim = Pengeluaran::where($where)->first();
+            
+            $kirim->update([
+                'tanggal' => $request->tanggal,
+                'instansi' => $request->nama_instansi,
+                'ab' => $request->ab ?? '-',
+                'konsumsi' => $request->konsumsi ?? '-',
+                'transportasi' => $request->transportasi ?? '-',
+                'keterangan' => $request->keterangan,           
+            ]);
+
+            
+            return redirect()->route('pengeluaran.index');
     }
 
     /**
@@ -118,7 +159,9 @@ class PengeluaranController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Pengeluaran::where('id',$id)->delete();
+
+        return response()->json($post);
     }
 
     public function all(Request $request)

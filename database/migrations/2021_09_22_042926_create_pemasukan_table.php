@@ -17,8 +17,8 @@ class CreatePemasukanTable extends Migration
             $table->bigIncrements('id');
             $table->string('motif');
             $table->string('barang');
-            $table->string('ukuran')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->string('ukuran');
+            $table->text('keterangan')->nullable();
             $table->string('jumlah');
             $table->string('nominal');
             $table->date('tanggal');

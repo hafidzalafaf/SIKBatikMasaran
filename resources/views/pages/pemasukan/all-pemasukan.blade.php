@@ -96,8 +96,9 @@
   
         //MULAI DATATABLE
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
-        $(document).ready(function () {
-            $('.input-daterange').datepicker({
+        var $j = jQuery.noConflict();
+        $j(document).ready(function () {
+            $j('.input-daterange').datepicker({
                 todayBtn:'linked',
                 format:'dd-mm-yyyy',
                 autoclose:true
@@ -207,7 +208,7 @@
                 }
             else
                 {
-                    alert('Both Date is required');
+                    alert('Masukkan tanggal awal dan akhir terlebih dahulu');
                 }
             });
 

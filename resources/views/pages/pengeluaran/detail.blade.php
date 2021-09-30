@@ -1,13 +1,18 @@
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
+<!-- jQuery -->
+<script src="{{ asset('assets/vendors/jquery/dist/jquery.min.js')  }}"></script>
 @extends('layouts.main')
 
 @section('content')
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
+             @foreach ($post->take(1) as $post )                
             <p class="text-muted font-13 m-b-30">
-            Menampilkan rincian laporan pengeluaran tanggal <span class="text-primary font-weight-bold">21-01-2021</span>. 
+            Menampilkan rincian laporan pengeluaran tanggal <span class="text-primary font-weight-bold">{{ $post->tanggal }}</span>. 
             </p>
-            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+            @endforeach
+            <table id="pengeluaran-detail" class="table table-striped table-bordered" style="width:100%">
                 
                 <thead>
                     <tr>
@@ -18,56 +23,9 @@
                         <th>Konsumsi</th>
                         <th>Transportasi</th>
                         <th>Keterangan</th>
-                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
-
-
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>20-01-2021</td>
-                        <td>Sunar</td>
-                        <td></td>
-                        <td>Rp. 100.000</td>
-                        <td>Rp. 20.000</td>
-                        <td>Bensin dan Uang Makan</td>
-                        <td>Rp. 120.000</td>
-                        <td>
-                            <a href="/pengeluaran/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pengeluaran/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>20-01-2021</td>
-                        <td>Encrit</td>
-                        <td>Rp. 50.000</td>
-                        <td></td>
-                        <td></td>
-                        <td>bensin dan lem</td>
-                        <td>Rp. 50.000</td>
-                        <td>
-                            <a href="/pengeluaran/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pengeluaran/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>20-01-2021</td>
-                        <td>Riski</td>
-                        <td>Rp. 20.000</td>
-                        <td>Rp. 200.000</td>
-                        <td></td>
-                        <td>Lakbban dan uang makan</td>
-                        <td>Rp. 220.000</td>
-                        <td>
-                            <a href="/pengeluaran/edit" class="btn btn-sm btn-info">Edit</a>
-                            <a href="/pengeluaran/hapus" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal">Hapus</a>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
@@ -86,9 +44,140 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-          <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+          <a href="#" id="tombol-hapus" class="btn btn-danger btn-sm">Hapus</a>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    //CSRF TOKEN PADA HEADER
+        //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        
+        });
+  
+        //MULAI DATATABLE
+        //script untuk memanggil data json dari server dan menampilkannya berupa datatable
+        $(document).ready(function () {
+            $('#pengeluaran-detail').DataTable({
+            language: {
+                    buttons: {
+                        // collection : 'Unduh',
+                        pdf:'Unduh',
+                        print : 'Cetak',
+                        excel : 'Excel',
+                        csv : 'CSV',
+                    }
+            },
+            
+            buttons : [
+                        // {extend:'collection', postfixButtons: [ 'pdf', 'excel', 'csv' ]},
+                        {extend:'pdf',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'print',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'excel',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'csv',title: 'laporan', exportOptions: {
+                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        {extend:'pageLength'},
+            ],
+
+            lengthChange: false,
+            // buttons: [ 'excel', 'pdf', 'print', 'csv', 'pageLength' ],
+                initComplete: function () {
+                    this.api().buttons().container() //untuk tombol unduh dan cetak
+                    .appendTo( '#pengeluaran-detail_wrapper .col-sm-6:eq(0)' ); 
+            },
+                processing: true,
+                serverSide: true, //aktifkan server-side 
+                ajax: {
+                    url: "{{ url('pengeluaran/'. date('Y-m-d', strtotime($post->tanggal))) }}",
+                    type: 'GET'
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex', 
+                        name: 'DT_RowIndex', orderable: false,searchable: false
+                    },
+                    {
+                        data: 'tanggal', 
+                        name: 'tanggal',
+                    },
+                    {
+                        data: 'instansi', 
+                        name: 'instansi', 
+                    },
+                    {
+                        data: 'ab', 
+                        name: 'ab', 
+                    },
+                    {
+                        data: 'konsumsi', 
+                        name: 'konsumsi', 
+                    },
+                    {
+                        data: 'transportasi', 
+                        name: 'transportasi', 
+                    },
+                    {
+                        data: 'keterangan', 
+                        name: 'keterangan', 
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,searchable: false
+                    },
+  
+                ],
+                columnDefs: [
+                    {
+                        targets: [3,4,5],
+                        render: $.fn.dataTable.render.number('.', '.', 0, 'Rp. ')
+                    }
+                ],
+                order: [
+                    [0, 'desc']
+                ]
+            });
+
+
+            //jika klik class delete (yang ada pada tombol delete) maka tampilkan modal konfirmasi hapus maka
+            $(document).on('click', '.delete', function () {
+                    dataId = $(this).attr('id');
+                    $('#exampleModal').modal('show');
+                });
+
+            //jika tombol hapus pada modal konfirmasi di klik maka
+            $('#tombol-hapus').click(function () {
+                $.ajax({
+                    url: dataId, //eksekusi ajax ke url ini
+                    type: 'delete',
+                    beforeSend: function () {
+                        $('#tombol-hapus').text('Hapus Data'); //set text untuk tombol hapus
+                    },
+                    success: function (data) { //jika sukses
+                        setTimeout(function () {
+                            $('#exampleModal').modal('hide'); //sembunyikan konfirmasi modal
+                            var oTable = $('#pengeluaran-detail').dataTable();
+                            oTable.fnDraw(false); //reset datatable
+                        });
+                        iziToast.warning({ //tampilkan izitoast warning
+                            title: 'Data Berhasil Dihapus',
+                            message: '{{ Session('
+                            delete ')}}',
+                            position: 'bottomRight'
+                        });
+                    }
+          })
+      });
+        });
+</script>
 @endsection

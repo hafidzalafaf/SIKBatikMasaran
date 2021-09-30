@@ -45,12 +45,11 @@
                     <tr>
                         <th>No</th>
                         <th>Tanggal</th>
-                        <th>Nama/instansi</th>
+                        <th>Nama/Instansi</th>
                         <th>AB</th>
                         <th>Konsumsi</th>
                         <th>Transportasi</th>
                         <th>Keterangan</th>
-                        <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -96,8 +95,9 @@
   
         //MULAI DATATABLE
         //script untuk memanggil data json dari server dan menampilkannya berupa datatable
-        $(document).ready(function () {
-            $('.input-daterange').datepicker({
+        var $j = jQuery.noConflict();
+        $j(document).ready(function () {
+            $j('.input-daterange').datepicker({
                 todayBtn:'linked',
                 format:'dd-mm-yyyy',
                 autoclose:true
@@ -121,13 +121,13 @@
             buttons : [
                         // {extend:'collection', postfixButtons: [ 'pdf', 'excel', 'csv' ]},
                         {extend:'pdf',title: 'laporan', exportOptions: {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        columns: [ 1, 2, 3, 4, 5, 6 ]}},
                         {extend:'print',title: 'laporan', exportOptions: {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        columns: [ 1, 2, 3, 4, 5, 6 ]}},
                         {extend:'excel',title: 'laporan', exportOptions: {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        columns: [ 1, 2, 3, 4, 5, 6 ]}},
                         {extend:'csv',title: 'laporan', exportOptions: {
-                        columns: [ 1, 2, 3, 4, 5, 6, 7 ]}},
+                        columns: [ 1, 2, 3, 4, 5, 6 ]}},
                         {extend:'pageLength'},
             ],
 
@@ -154,24 +154,20 @@
                         name: 'tanggal',
                     },
                     {
-                        data: 'barang', 
-                        name: 'barang', 
+                        data: 'instansi', 
+                        name: 'instansi', 
                     },
                     {
-                        data: 'ukuran', 
-                        name: 'ukuran', 
+                        data: 'ab', 
+                        name: 'ab', 
                     },
                     {
-                        data: 'motif', 
-                        name: 'motif', 
+                        data: 'konsumsi', 
+                        name: 'konsumsi', 
                     },
                     {
-                        data: 'jumlah', 
-                        name: 'jumlah', 
-                    },
-                    {
-                        data: 'nominal', 
-                        name: 'nominal', 
+                        data: 'transportasi', 
+                        name: 'transportasi', 
                     },
                     {
                         data: 'keterangan', 
@@ -186,7 +182,7 @@
                 ],
                 columnDefs: [
                     {
-                        targets: 6,
+                        targets: [3, 4, 5],
                         render: $.fn.dataTable.render.number('.', '.', 0, 'Rp. ')
                     }
                 ],
@@ -207,7 +203,7 @@
                 }
             else
                 {
-                    alert('Both Date is required');
+                    alert('Masukkan tanggal awal dan akhir terlebih dahulu');
                 }
             });
 

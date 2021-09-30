@@ -2,8 +2,8 @@
 @extends('layouts.main')
 
 @section('content')
-<form id="demo-form2" action="#" data-parsley-validate class="form-horizontal form-label-left">
-
+<form id="demo-form2" method="post" action="{{ route('pengeluaran.store') }}" data-parsley-validate class="form-horizontal form-label-left">
+    @csrf
     <div class="item form-group">
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tanggal">Tanggal<span class="required"></span>
         </label>
@@ -21,13 +21,13 @@
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="ab">AB<span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 ">
-            <input type="text" id="ab" name="ab" class="form-control">
+            <input type="number" id="ab" name="ab" class="form-control">
         </div>
     </div>
     <div class="item form-group">
         <label for="konsumsi" class="col-form-label col-md-3 col-sm-3 label-align">Konsumsi</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="konsumsi" class="form-control" type="text" name="konsumsi">
+            <input id="konsumsi" class="form-control" type="number" name="konsumsi">
         </div>
     </div>
     <div class="item form-group">
@@ -42,13 +42,6 @@
             <textarea name="keterangan" id="keterangan" rows="3" class="form-control" required></textarea>
         </div>
     </div>
-    <div class="item form-group">
-        <label for="nominal" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
-        <div class="col-md-6 col-sm-6 ">
-            <input id="nominal" class="form-control" type="number" name="nominal">
-        </div>
-    </div>
-    
     <div class="ln_solid"></div>
     <div class="item form-group">
         <div class="col-md-6 col-sm-6 offset-md-3 d-flex justify-content-center mt-3">

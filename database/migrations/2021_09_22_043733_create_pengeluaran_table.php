@@ -16,11 +16,11 @@ class CreatePengeluaranTable extends Migration
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('tanggal');
-            $table->string('ab');
+            $table->string('ab')->nullable();
             $table->string('instansi');
-            $table->string('konsumsi');
-            $table->string('transportasi');
-            $table->string('keterangan');
+            $table->string('konsumsi')->nullable();
+            $table->string('transportasi')->nullable();
+            $table->text('keterangan');
             $table->timestamps();
         });
     }
