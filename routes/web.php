@@ -45,23 +45,9 @@ Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
 // END PEMASUKAN
 
 // PENGELUARAN
-Route::get('/pengeluaran', function () {
-    return view('pages.pengeluaran.pengeluaran', [
-        "title" => "Rangkuman Pengeluaran",
-        "sidebar" => "pengeluaran"
-    ]);
-});
-
 Route::get('/pengeluaran/detail', function () {
     return view('pages.pengeluaran.detail', [
         "title" => "Detail Pengeluaran",
-        "sidebar" => "pengeluaran"
-    ]);
-});
-
-Route::get('/pengeluaran/tambah', function () {
-    return view('pages.pengeluaran.tambah', [
-        "title" => "Tambah Pengeluaran",
         "sidebar" => "pengeluaran"
     ]);
 });
@@ -73,10 +59,6 @@ Route::get('/pengeluaran/edit', function () {
     ]);
 });
 
-Route::get('/pengeluaran/all', function () {
-    return view('pages.pengeluaran.all', [
-        "title" => "Semua Laporan Pengeluaran",
-        "sidebar" => "pengeluaran"
-    ]);
-});
+Route::get('/pengeluaran/all', 'PengeluaranController@all');
+Route::resource('/pengeluaran','PengeluaranController', ['names' => 'pengeluaran']);
 // END PENGELUARAN

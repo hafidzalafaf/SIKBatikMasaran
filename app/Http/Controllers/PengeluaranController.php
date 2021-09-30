@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Pengeluaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class PengeluaranController extends Controller
 {
@@ -11,9 +13,26 @@ class PengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $title= "Rangkuman Pengeluaran";
+        $sidebar= "pengeluaran";
+
+        $data = Pengeluaran::select('tanggal', Pengeluaran::raw('SUM(konsumsi+ab+transportasi) as total_pengeluaran'))->groupBy('tanggal')->get();
+        
+        if($request->ajax()){
+            return datatables()->of($data)
+                    ->addColumn('action', function($data){
+                        $button = '<a href="pengeluaran/'.date('Y-m-d', strtotime($data->tanggal)).'" data-id="'.date('Y-m-d', strtotime($data->tanggal)).'" class="btn btn-sm btn-info">Detail</a>';                               
+                        return $button;
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+
+        }
+        // dd($jumlah);
+        return view('pages.pengeluaran.pengeluaran', compact('title','sidebar','data'));
     }
 
     /**
@@ -23,7 +42,10 @@ class PengeluaranController extends Controller
      */
     public function create()
     {
-        //
+        $title= "Tambah Pengeluaran";
+        $sidebar= "pengeluaran";
+
+        return view('pages.pengeluaran.tambah', compact('title','sidebar'));
     }
 
     /**
@@ -34,7 +56,24 @@ class PengeluaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => 'Silahkan masukkan :attribute terlebih dahulu.'
+        ];
+
+        $this->validate($request, [
+                    // 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],$messages);
+                    
+            $kirim = Pengeluaran::create([
+                'tanggal' => $request->tanggal,
+                'instansi' => $request->nama_instansi,
+                'ab' => $request->ab,
+                'konsumsi' => $request->konsumsi,
+                'transportasi' => $request->transportasi,
+                'keterangan' => $request->keterangan,
+            ]);
+
+            return redirect()->route('pengeluaran.index');
     }
 
     /**
@@ -80,5 +119,38 @@ class PengeluaranController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function all(Request $request)
+    {
+        $title= "Semua Laporan Pengeluaran";
+        $sidebar= "pengeluaran";
+
+        $post = Pengeluaran::all();
+        $conv_from = date('Y-m-d', strtotime($request->from_date));  
+        $conv_to = date('Y-m-d', strtotime($request->to_date));
+
+        if($request->ajax()){
+            if(!empty($request->from_date)){
+                $post = Pengeluaran::whereBetween('tanggal', array($conv_from, $conv_to))->get();
+            }
+            else{
+             $post = Pengeluaran::get();
+            }
+            
+            return datatables()->of($post)
+                    ->addColumn('action', function($data){
+                        $button = '<a href="'.$data->id.'/edit" data-id="'.$data->id.'" class="btn btn-sm btn-info">Edit</a>';                               
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-sm btn-danger" data-toggle="modal">Hapus</button>';
+                        return $button;
+                        
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+
+        }        
+        return view('pages.pengeluaran.all', compact('title','sidebar'));
     }
 }

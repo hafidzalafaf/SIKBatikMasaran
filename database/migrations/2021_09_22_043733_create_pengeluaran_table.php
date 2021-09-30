@@ -20,8 +20,7 @@ class CreatePengeluaranTable extends Migration
             $table->string('instansi');
             $table->string('konsumsi');
             $table->string('transportasi');
-            $table->string('ket');
-            $table->string('nominal');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
