@@ -41,12 +41,6 @@
             <textarea name="keterangan" id="keterangan" rows="3" class="form-control" required></textarea>
         </div>
     </div>
-    <div class="item form-group">
-        <label for="jumlah" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
-        <div class="col-md-6 col-sm-6 ">
-            <input id="jumlah" class="form-control" type="number" name="jumlah" required>
-        </div>
-    </div>
     
     <div class="ln_solid"></div>
     <div class="item form-group ">
