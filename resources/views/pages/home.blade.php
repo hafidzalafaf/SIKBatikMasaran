@@ -8,7 +8,13 @@
             <div class="card-header">Pemasukan Hari Ini</div>
             <div class="card-body d-flex flex-column">
                 <i class="fa fa-money fa-3x mx-auto"></i>
-                <h5 class="card-title mx-auto mt-3">Rp. 2.900.000</h5>
+                <h5 class="card-title mx-auto mt-3"> 
+                    @if ($pemasukan_now === '0')
+                        Rp. 0
+                    @else
+                        @currency($pemasukan_now[0]->total_pemasukan) 
+                    @endif
+                </h5>
             </div>
         </div>
     </div>
@@ -18,7 +24,13 @@
             <div class="card-header">Pengeluaran Hari Ini</div>
             <div class="card-body d-flex flex-column">
                 <i class="fa fa-money fa-3x mx-auto"></i>
-                <h5 class="card-title mx-auto mt-3">Rp. 1.800.000</h5>
+                <h5 class="card-title mx-auto mt-3">
+                    @if ($pengeluaran_now === '0')
+                        Rp. 0
+                    @else
+                        @currency($pengeluaran_now[0]->total_pengeluaran) 
+                    @endif
+                </h5>
             </div>
         </div>
     </div>
@@ -28,7 +40,13 @@
             <div class="card-header">Pemasukan Minggu Ini</div>
             <div class="card-body d-flex flex-column">
                 <i class="fa fa-money fa-3x mx-auto"></i>
-                <h5 class="card-title mx-auto mt-3">Rp. 12.100.000</h5>
+                <h5 class="card-title mx-auto mt-3">
+                    @if ($pemasukan_mingguan === '0')
+                        Rp. 0
+                    @else
+                        @currency($pemasukan_mingguan) 
+                    @endif
+                </h5>
             </div>
         </div>
     </div>
@@ -38,7 +56,13 @@
             <div class="card-header">Pengeluaran Minggu Ini</div>
             <div class="card-body d-flex flex-column">
                 <i class="fa fa-money fa-3x mx-auto"></i>
-                <h5 class="card-title mx-auto mt-3">Rp. 8.800.000</h5>
+                <h5 class="card-title mx-auto mt-3">
+                    @if ($pengeluaran_mingguan === '0')
+                        Rp. 0
+                    @else
+                        @currency($pengeluaran_mingguan) 
+                    @endif
+                </h5>
             </div>
         </div>
     </div>

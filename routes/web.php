@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home', [
-        "title" => "Dashboard",
-        "sidebar" => "dashboard"
-    ]);
-});
+
+// Route::get('/', function () {
+//     return view('pages.home', [
+//         "title" => "Dashboard",
+//         "sidebar" => "dashboard"
+//     ]);
+// });
 
 Route::get('/profil', function () {
     return view('pages.profil', [
@@ -37,7 +38,7 @@ Route::get('/profil/edit', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('/','DashboardController', ['names' => 'dashboard']);
 
 // PEMASUKAN
 Route::get('/pemasukan/all', 'PemasukanController@all');
