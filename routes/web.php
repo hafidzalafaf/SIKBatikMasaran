@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-// Route::get('/', function () {
-//     return view('pages.home', [
-//         "title" => "Dashboard",
-//         "sidebar" => "dashboard"
-//     ]);
-// });
-
 Route::get('/profil', function () {
     return view('pages.profil', [
         "title" => "Profil",
@@ -46,20 +38,6 @@ Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
 // END PEMASUKAN
 
 // PENGELUARAN
-// Route::get('/pengeluaran/detail', function () {
-//     return view('pages.pengeluaran.detail', [
-//         "title" => "Detail Pengeluaran",
-//         "sidebar" => "pengeluaran"
-//     ]);
-// });
-
-Route::get('/pengeluaran/edit', function () {
-    return view('pages.pengeluaran.edit', [
-        "title" => "Edit Pengeluaran",
-        "sidebar" => "pengeluaran"
-    ]);
-});
-
 Route::get('/pengeluaran/all', 'PengeluaranController@all');
 Route::resource('/pengeluaran','PengeluaranController', ['names' => 'pengeluaran']);
 // END PENGELUARAN
