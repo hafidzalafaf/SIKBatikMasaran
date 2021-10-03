@@ -16,11 +16,6 @@
                         <td>Jhon Doe</td>
                     </tr>
                     <tr >
-                        <td>Username</td>
-                        <td class="text-right">:</td>
-                        <td>johndoe</td>
-                    </tr>
-                    <tr >
                         <td>password</td>
                         <td class="text-right">:</td>
                         <td>********</td>

@@ -24,12 +24,6 @@
         </div>
     </div>
     <div class="item form-group">
-        <label for="username" class="col-form-label col-md-3 col-sm-3 label-align">Username</label>
-        <div class="col-md-6 col-sm-6 ">
-            <input id="username" class="form-control" type="text" name="username" required>
-        </div>
-    </div>
-    <div class="item form-group">
         <label for="telepon" class="col-form-label col-md-3 col-sm-3 label-align">No Telepon</label>
         <div class="col-md-6 col-sm-6 ">
             <input id="telepon" class="form-control" type="number" name="telepon" required>
