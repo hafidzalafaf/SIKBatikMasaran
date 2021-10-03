@@ -40,6 +40,11 @@
                         <td class="text-right">:</td>
                         <td>Toko Batik AV</td>
                     </tr>
+                    <tr >
+                        <td>Jabatan</td>
+                        <td class="text-right">:</td>
+                        <td>Pemilik</td>
+                    </tr>
                 </table>
                 <center><a href="/profil/edit" class="btn btn-sm btn-info">Ubah</a></center>
             </div>

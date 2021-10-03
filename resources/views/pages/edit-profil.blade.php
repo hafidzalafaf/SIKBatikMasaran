@@ -7,13 +7,13 @@
         <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama">Nama<span class="required"></span>
         </label>
         <div class="col-md-6 col-sm-6 ">
-            <input type="date" name="nama" id="nama" required="required" class="form-control ">
+            <input type="name" name="nama" id="nama" required="required" class="form-control ">
         </div>
     </div>
     <div class="item form-group">
-        <label for="username" class="col-form-label col-md-3 col-sm-3 label-align">Username</label>
+        <label for="email" class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="username" class="form-control" type="text" name="username" required>
+            <input id="email" class="form-control" type="text" name="email" required>
         </div>
     </div>
     <div class="item form-group">
@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="item form-group">
-        <label for="email" class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+        <label for="username" class="col-form-label col-md-3 col-sm-3 label-align">Username</label>
         <div class="col-md-6 col-sm-6 ">
-            <input id="email" class="form-control" type="text" name="email" required>
+            <input id="username" class="form-control" type="text" name="username" required>
         </div>
     </div>
     <div class="item form-group">
@@ -39,6 +39,17 @@
         <label for="nama-toko" class="col-form-label col-md-3 col-sm-3 label-align">Nama Toko</label>
         <div class="col-md-6 col-sm-6 ">
             <textarea name="nama-toko" id="nama-toko" rows="3" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label for="jabatan" class="col-form-label col-md-3 col-sm-3 label-align">Jabatan</label>
+
+        <div class="col-md-6 col-sm-6">
+            <select class="form-control" id="jabatan" class="form-control" name="jabaran" required>
+                <option>-- Pilih --</option>
+                <option value="pemilik">Pemilik</option>
+                <option value="pemilik">Admin</option>
+              </select>
         </div>
     </div>
     <div class="ln_solid"></div>
