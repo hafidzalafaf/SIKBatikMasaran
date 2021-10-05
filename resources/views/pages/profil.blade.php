@@ -16,11 +16,6 @@
                         <td>Jhon Doe</td>
                     </tr>
                     <tr >
-                        <td>password</td>
-                        <td class="text-right">:</td>
-                        <td>********</td>
-                    </tr>
-                    <tr >
                         <td>Email</td>
                         <td class="text-right">:</td>
                         <td>jhondoe@gmail.com</td>
@@ -41,7 +36,10 @@
                         <td>Pemilik</td>
                     </tr>
                 </table>
-                <center><a href="/profil/edit" class="btn btn-sm btn-info">Ubah</a></center>
+                <div class="d-flex justify-content-center">
+                    <a href="/profil/edit" class="btn btn-sm btn-info">Ubah</a>
+                    <a href="#" class="btn btn-sm btn-warning">Reset Password</a>
+                </div>
             </div>
         </div>
     </div>
