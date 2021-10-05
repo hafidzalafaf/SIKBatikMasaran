@@ -19,13 +19,6 @@
         </div>
     </div>
     <div class="item form-group">
-        <label class="col-form-label col-md-3 col-sm-3 label-align" for="password">Password<span class="required"></span>
-        </label>
-        <div class="col-md-6 col-sm-6 ">
-            <input type="text" id="password" name="password" required="required" class="form-control">
-        </div>
-    </div>
-    <div class="item form-group">
         <label for="telepon" class="col-form-label col-md-3 col-sm-3 label-align">No Telepon</label>
         <div class="col-md-6 col-sm-6 ">
             <input id="telepon" class="form-control" type="number" name="telepon" required value="{{ $post->no_telp }}">
