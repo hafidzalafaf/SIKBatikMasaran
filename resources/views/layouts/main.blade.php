@@ -38,7 +38,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="#" class="site_title" style="font-size: 18px;"><i class="fa fa-paint-brush"></i> <span>SIK Batik Masaran</span></a>
+                        <a href="/" class="site_title" style="font-size: 18px;"><i class="fa fa-paint-brush"></i> <span>SIK Batik Masaran</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -46,8 +46,10 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_info" style="width: 90%;">
-                            <span>Selamat Datang</span>
-                            <h2 class="d-inline">Jhon Doe</h2>
+                            <span>Selamat Datang </span>
+                            <h2 class="d-inline">
+                                {{ $user->name }}
+                            </h2>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -70,7 +72,9 @@
                                     <a href="/pengeluaran"><i class="fa fa-list"></i> Laporan Pengeluaran</a>
                                 </li>
                                 <li>
-                                    <a href="/home"><i class="fa fa-sign-out"></i>Keluar</a>
+                                    <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                  document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ __('Keluar') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -90,11 +94,19 @@
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{asset('assets/production/images/user.png')}}" alt="">John Doe
+                                    <img src="{{asset('assets/production/images/user.png')}}" alt=""> {{ $user->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/profil"> Profile</a>
-                                    <a class="dropdown-item" href="/home"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
 

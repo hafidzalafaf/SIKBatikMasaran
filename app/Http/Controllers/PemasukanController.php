@@ -8,6 +8,19 @@ use Illuminate\Support\Carbon;
 
 class PemasukanController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +30,7 @@ class PemasukanController extends Controller
     {
         $title= "Rangkuman Pemasukan";
         $sidebar= "pemasukan";
+        $user = \Auth::user();
 
         $data = Pemasukan::select('tanggal', Pemasukan::raw('SUM(nominal) as total_pemasukan'))->groupBy('tanggal')->get();
         // $load_tgl = Pemasukan::select('tanggal')->get();
@@ -33,7 +47,7 @@ class PemasukanController extends Controller
 
         }
         // dd($jumlah);
-        return view('pages.pemasukan.pemasukan', compact('title','sidebar','data'));
+        return view('pages.pemasukan.pemasukan', compact('title','sidebar','data','user'));
     }
 
     /**
@@ -45,8 +59,9 @@ class PemasukanController extends Controller
     {
         $title= "Form Tambah Pemasukan";
         $sidebar= "pemasukan";
+        $user = \Auth::user();
 
-        return view('pages.pemasukan.tambah-pemasukan', compact('title','sidebar'));
+        return view('pages.pemasukan.tambah-pemasukan', compact('title','sidebar','user'));
     }
 
     /**
@@ -91,6 +106,7 @@ class PemasukanController extends Controller
 
         $title= "Detail Pemasukan";
         $sidebar= "pemasukan";
+        $user = \Auth::user();
 
         $where = array('tanggal' => $tanggal);
         $post  =  Pemasukan::where($where)->get();
@@ -110,7 +126,7 @@ class PemasukanController extends Controller
 
         }        
 
-        return view('pages.pemasukan.detail-pemasukan', compact('title','sidebar','post'));
+        return view('pages.pemasukan.detail-pemasukan', compact('title','sidebar','post','user'));
         // dd($post);
     }
 
@@ -125,11 +141,12 @@ class PemasukanController extends Controller
 
         $title= "Form Edit Pemasukan";
         $sidebar= "pemasukan";
+        $user = \Auth::user();
 
         $where = array('id' => $id);
         $post  = Pemasukan::where($where)->first();
      
-        return view('pages.pemasukan.edit-pemasukan', compact('post','title','sidebar'));
+        return view('pages.pemasukan.edit-pemasukan', compact('post','title','sidebar','user'));
     }
 
     /**
@@ -175,6 +192,7 @@ class PemasukanController extends Controller
     {
         $title= "Semua Pemasukan";
         $sidebar= "pemasukan";
+        $user = \Auth::user();
 
         $post = Pemasukan::all();
         $conv_from = date('Y-m-d', strtotime($request->from_date));  
@@ -201,7 +219,7 @@ class PemasukanController extends Controller
                     ->make(true);
 
         }        
-        return view('pages.pemasukan.all-pemasukan', compact('title','sidebar'));
+        return view('pages.pemasukan.all-pemasukan', compact('title','sidebar','user'));
     }
     
 }

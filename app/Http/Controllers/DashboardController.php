@@ -9,6 +9,18 @@ use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +30,7 @@ class DashboardController extends Controller
     {
         $title= "Dashboard";
         $sidebar= "dashboard";
+        $user = \Auth::user();
 
         $pemasukan_now = Pemasukan::select('tanggal', Pemasukan::raw('SUM(nominal) as total_pemasukan'))->groupBy('tanggal')->whereDate('tanggal', Carbon::now()->setTimezone('Asia/Jakarta'))->get();
         if ($pemasukan_now->isEmpty()) {
@@ -47,7 +60,7 @@ class DashboardController extends Controller
             $pengeluaran_mingguan = $arr_new;
         }
 
-        return view('pages.home', compact('title','sidebar','pemasukan_now','pengeluaran_now','pemasukan_mingguan','pengeluaran_mingguan'));
+        return view('pages.home', compact('title','sidebar','pemasukan_now','pengeluaran_now','pemasukan_mingguan','pengeluaran_mingguan','user'));
     }
 
     /**

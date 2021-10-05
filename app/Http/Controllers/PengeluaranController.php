@@ -8,6 +8,17 @@ use Illuminate\Support\Carbon;
 
 class PengeluaranController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +28,7 @@ class PengeluaranController extends Controller
     {
         $title= "Rangkuman Pengeluaran";
         $sidebar= "pengeluaran";
+        $user = \Auth::user();
 
         $data = Pengeluaran::select('tanggal', Pengeluaran::raw('SUM(konsumsi+ab+transportasi) as total_pengeluaran'))->groupBy('tanggal')->get();
         // $data = Pengeluaran::get();
@@ -32,7 +44,7 @@ class PengeluaranController extends Controller
 
         }
         // dd($data);
-        return view('pages.pengeluaran.pengeluaran', compact('title','sidebar','data'));
+        return view('pages.pengeluaran.pengeluaran', compact('title','sidebar','data','user'));
     }
 
     /**
@@ -44,8 +56,9 @@ class PengeluaranController extends Controller
     {
         $title= "Tambah Pengeluaran";
         $sidebar= "pengeluaran";
+        $user = \Auth::user();
 
-        return view('pages.pengeluaran.tambah', compact('title','sidebar'));
+        return view('pages.pengeluaran.tambah', compact('title','sidebar','user'));
     }
 
     /**
@@ -86,6 +99,7 @@ class PengeluaranController extends Controller
     {
         $title= "Detail Pengeluaran";
         $sidebar= "pengeluaran";
+        $user = \Auth::user();
 
         $where = array('tanggal' => $tanggal);
         $post  =  Pengeluaran::where($where)->get();
@@ -105,7 +119,7 @@ class PengeluaranController extends Controller
 
         }        
 
-        return view('pages.pengeluaran.detail', compact('title','sidebar','post'));
+        return view('pages.pengeluaran.detail', compact('title','sidebar','post','user'));
         // dd($post);
     }
 
@@ -119,11 +133,12 @@ class PengeluaranController extends Controller
     {
         $title= "Edit Pengeluaran";
         $sidebar= "pengeluaran";
+        $user = \Auth::user();
 
         $where = array('id' => $id);
         $post  = Pengeluaran::where($where)->first();
      
-        return view('pages.pengeluaran.edit', compact('post','title','sidebar'));
+        return view('pages.pengeluaran.edit', compact('post','title','sidebar','user'));
     }
 
     /**
@@ -168,6 +183,7 @@ class PengeluaranController extends Controller
     {
         $title= "Semua Laporan Pengeluaran";
         $sidebar= "pengeluaran";
+        $user = \Auth::user();
 
         $post = Pengeluaran::all();
         $conv_from = date('Y-m-d', strtotime($request->from_date));  
@@ -194,6 +210,6 @@ class PengeluaranController extends Controller
                     ->make(true);
 
         }        
-        return view('pages.pengeluaran.all', compact('title','sidebar'));
+        return view('pages.pengeluaran.all', compact('title','sidebar','user'));
     }
 }

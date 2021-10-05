@@ -13,35 +13,35 @@
                     <tr >
                         <td>Nama</td>
                         <td class="text-right">:</td>
-                        <td>Jhon Doe</td>
+                        <td>{{ $user->name }}</td>
                     </tr>
                     <tr >
-                        <td>password</td>
+                        <td>Password</td>
                         <td class="text-right">:</td>
                         <td>********</td>
                     </tr>
                     <tr >
                         <td>Email</td>
                         <td class="text-right">:</td>
-                        <td>jhondoe@gmail.com</td>
+                        <td>{{ $user->email }}</td>
                     </tr>
                     <tr >
                         <td>No telepon</td>
                         <td class="text-right">:</td>
-                        <td>087281921</td>
+                        <td>{{ $user->no_telp }}</td>
                     </tr>
                     <tr >
                         <td>Nama Toko</td>
                         <td class="text-right">:</td>
-                        <td>Toko Batik AV</td>
+                        <td>{{ $user->nama_toko }}</td>
                     </tr>
                     <tr >
                         <td>Jabatan</td>
                         <td class="text-right">:</td>
-                        <td>Pemilik</td>
+                        <td>{{ $user->roles[0]->name }}</td>
                     </tr>
                 </table>
-                <center><a href="/profil/edit" class="btn btn-sm btn-info">Ubah</a></center>
+                <center><a href="{{route('profil.edit', $user->id)}}" class="btn btn-sm btn-info">Ubah</a></center>
             </div>
         </div>
     </div>

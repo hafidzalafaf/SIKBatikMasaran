@@ -13,31 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/profil', function () {
-    return view('pages.profil', [
-        "title" => "Profil",
-        "sidebar" => ""
-    ]);
-});
-
-Route::get('/profil/edit', function () {
-    return view('pages.edit-profil', [
-        "title" => "Edit Profil",
-        "sidebar" => ""
-    ]);
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/','DashboardController', ['names' => 'dashboard']);
+// Route::get('/profil/edit', function () {
+//     return view('pages.edit-profil', [
+//         "title" => "Edit Profil",
+//         "sidebar" => ""
+//     ]);
+// });
 
-// PEMASUKAN
-Route::get('/pemasukan/all', 'PemasukanController@all');
-Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
-// END PEMASUKAN
 
-// PENGELUARAN
-Route::get('/pengeluaran/all', 'PengeluaranController@all');
-Route::resource('/pengeluaran','PengeluaranController', ['names' => 'pengeluaran']);
-// END PENGELUARAN
+Route::group(['middleware' => ['role:Admin|Pemilik']], function () {
+    Route::resource('/profil','ProfilController', ['names' => 'profil']);
+
+
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('/','DashboardController', ['names' => 'dashboard']);
+
+    // PEMASUKAN
+    Route::get('/pemasukan/all', 'PemasukanController@all');
+    Route::resource('/pemasukan','PemasukanController', ['names' => 'pemasukan']);
+    // END PEMASUKAN
+
+    // PENGELUARAN
+    Route::get('/pengeluaran/all', 'PengeluaranController@all');
+    Route::resource('/pengeluaran','PengeluaranController', ['names' => 'pengeluaran']);
+    // END PENGELUARAN
+});
