@@ -15,14 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/profil/edit', function () {
-//     return view('pages.edit-profil', [
-//         "title" => "Edit Profil",
-//         "sidebar" => ""
-//     ]);
-// });
-
-
 Route::group(['middleware' => ['role:Admin|Pemilik']], function () {
     Route::resource('/profil','ProfilController', ['names' => 'profil']);
 

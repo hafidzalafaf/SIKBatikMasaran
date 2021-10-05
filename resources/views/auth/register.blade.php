@@ -65,27 +65,27 @@
                             <label for="telepon" class="col-md-4 col-form-label text-md-right">Telepon</label>
 
                             <div class="col-md-6">
-                                <input id="telepon" type="text" class="form-control" name="telepon" required>
+                                <input id="telepon" type="text" class="form-control @error('telepon') is-invalid @enderror" name="telepon" value="{{ old('telepon') }}" required autocomplete="telepon" autofocus>
+
+                                @error('telepon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="toko" class="col-md-4 col-form-label text-md-right">Toko</label>
+                            <label for="nama_toko" class="col-md-4 col-form-label text-md-right">Toko</label>
 
                             <div class="col-md-6">
-                                <input id="toko" type="text" class="form-control" name="toko" required>
-                            </div>
-                        </div>
+                                <input id="nama_toko" type="text" class="form-control @error('nama_toko') is-invalid @enderror" name="nama_toko" value="{{ old('nama_toko') }}" required autocomplete="telepon" autofocus>
 
-                        <div class="form-group row">
-                            <label for="jabatan" class="col-md-4 col-form-label text-md-right">Jabatan</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" id="jabatan" class="form-control" name="jabaran" required>
-                                    <option>-- Pilih --</option>
-                                    <option value="pemilik">Pemilik</option>
-                                    <option value="pemilik">Admin</option>
-                                  </select>
+                                @error('nama_toko')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

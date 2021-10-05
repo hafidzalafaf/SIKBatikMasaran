@@ -84,7 +84,19 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $where = array('id' => $id);
+            $kirim = User::where($where)->first();
+            
+            $kirim->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'no_telp' => $request->telepon,
+                'nama_toko' => $request->nama_toko,
+                'jabatan' => $request->jabatan,       
+            ]);
+
+            
+            return redirect()->route('profil.index');
     }
 
     /**

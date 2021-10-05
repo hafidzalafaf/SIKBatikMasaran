@@ -30,17 +30,30 @@
             <input id="nama_toko" class="form-control" type="text" name="nama_toko" required value="{{ $post->nama_toko }}">
         </div>
     </div>
+    @if (auth()->user()->hasrole('Admin'))
     <div class="item form-group">
         <label for="jabatan" class="col-form-label col-md-3 col-sm-3 label-align">Jabatan</label>
-
         <div class="col-md-6 col-sm-6">
             <select class="form-control" id="jabatan" class="form-control" name="jabatan" required>
                 <option value="" holder>Pilih</option>
-                <option value="pemilik" <?php if($post->roles[0]->name=="Pemilik") echo 'selected="selected"'; ?>>Pemilik</option>
-                <option value="pemilik" <?php if($post->roles[0]->name=="Admin") echo 'selected="selected"'; ?>>Admin</option>
+                <option value="Pemilik" <?php if($post->roles[0]->name=="Pemilik") echo 'selected="selected"'; ?>>Pemilik</option>
+                <option value="Admin" <?php if($post->roles[0]->name=="Admin") echo 'selected="selected"'; ?>>Admin</option>
               </select>
         </div>
     </div>
+    @else
+    <div class="item form-group">
+        <label for="jabatan" class="col-form-label col-md-3 col-sm-3 label-align">Jabatan</label>
+        <div class="col-md-6 col-sm-6">
+            <select class="form-control" id="jabatan" class="form-control" name="jabatan" required>
+                <option value="" holder>Pilih</option>
+                <option value="Pemilik" <?php if($post->roles[0]->name=="Pemilik") echo 'selected="selected"'; ?>>Pemilik</option>
+                <option value="Admin" <?php if($post->roles[0]->name=="Admin") echo 'selected="selected"'; ?> disabled>Admin</option>
+              </select>
+        </div>
+    </div>    
+    @endif
+   
     <div class="ln_solid"></div>
     <div class="item form-group">
         <div class="col-md-6 col-sm-6 offset-md-3 d-flex justify-content-center mt-3">
