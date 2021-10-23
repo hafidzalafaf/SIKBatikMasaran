@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
+
 
 Route::group(['middleware' => ['role:Admin|Pemilik']], function () {
     Route::resource('/profil','ProfilController', ['names' => 'profil']);

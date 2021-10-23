@@ -10,6 +10,8 @@
 
     <title>SIK | Batik Masaran </title>
 
+    <link rel="icon" href="{{asset('assets/production/images/favicon.ico')}}" type="image/x-icon">
+
     <!-- Bootstrap -->
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }} " rel="stylesheet">
     <!-- Font Awesome -->
@@ -38,7 +40,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title" style="font-size: 18px;"><i class="fa fa-paint-brush"></i> <span>SIK Batik Masaran</span></a>
+                    <a href="#" class="site_title" style="font-size: 18px; margin-top:10px;"><img style="width:70px" src="{{asset('assets/production/images/logo-batikAV.png')}}" alt=""> <span style="color:#5a738e; font-weight:600">SIK Batik AV</span></a>
                     </div>
 
                     <div class="clearfix"></div>
